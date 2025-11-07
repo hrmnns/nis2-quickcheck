@@ -8,7 +8,7 @@ Eine browserbasierte Anwendung zur **Erstbewertung**, ob ein Unternehmen von der
 
 Die EU-NIS2-Richtlinie verpflichtet Unternehmen bestimmter Sektoren zu erweiterten Anforderungen in den Bereichen **Informationssicherheit**, **Risikomanagement**, **Meldepflichten** und **Lieferkettensicherheit**.  Diese Web-App hilft dabei, schnell und unkompliziert zu prüfen, ob das eigene Unternehmen grundsätzlich unter die Richtlinie fallen könnte.
 
-**Blog-Beitrag**: https://www.cherware.de/reflect-it/831/
+Diese Web-App entstand im Rahmen des folgenden **Blogbeitrags:** https://www.cherware.de/reflect-it/831/
 
 ## Features
 
