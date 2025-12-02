@@ -4,7 +4,7 @@ Alle relevanten Änderungen an diesem Projekt werden in diesem Dokument festgeha
 Das Format orientiert sich an **Keep a Changelog**  
 und nutzt **Semantic Versioning** (MAJOR.MINOR.PATCH).
 
-## [v1.1.0] – 2025-02-xx
+## [v1.1.0] – 2025-12-02
 ### Added
 - **Neue MSP-Erkennung (Managed Service Provider)**  
   - Einführung der Frage zur Applikations-/Systembetriebsverantwortung  
