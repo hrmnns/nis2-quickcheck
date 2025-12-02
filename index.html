@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="de">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,21 +9,28 @@
   <meta name="description" content="Interaktive NIS-2 Betroffenheitsprüfung (Proof of Concept)" />
   <style>
     /* Kleine Ergänzungen über Tailwind hinaus */
-    .card { @apply bg-white shadow-md rounded-2xl p-6; }
-    .muted { @apply text-sm text-gray-500; }
+    .card {
+      @apply bg-white shadow-md rounded-2xl p-6;
+    }
+
+    .muted {
+      @apply text-sm text-gray-500;
+    }
   </style>
 </head>
+
 <body class="bg-slate-50 text-slate-800 min-h-screen flex items-center justify-center p-6">
   <div class="max-w-4xl w-full">
     <header class="mb-6">
       <div class="flex items-center gap-4">
-		<img src="https://www.cherware.de/wp-content/uploads/2025/09/cropped-iconme03.png" 
-		alt="NIS-2 Icon" 
-		class="w-16 h-16 mb-4 rounded-full shadow-lg ml-0">
+        <img src="https://www.cherware.de/wp-content/uploads/2025/09/cropped-iconme03.png" alt="NIS-2 Icon"
+          class="w-16 h-16 mb-4 rounded-full shadow-lg ml-0">
         <div>
           <h1 class="text-2xl font-semibold">NIS‑2 Betroffenheitsprüfung</h1>
-          <p class="muted">Schnellcheck: Bestimmen Sie, ob Ihr Unternehmen direkt oder indirekt von NIS‑2 betroffen ist.</p>
-          <p class="text-gray-400"><a href="https://www.cherware.de/reflect-it/831/">created by cherware.de, 2025</a></p>
+          <p class="muted">Schnellcheck: Bestimmen Sie, ob Ihr Unternehmen direkt oder indirekt von NIS‑2 betroffen ist.
+          </p>
+          <p class="text-gray-400"><a href="https://www.cherware.de/reflect-it/831/">created by cherware.de, 2025</a>
+          </p>
         </div>
       </div>
     </header>
@@ -30,11 +38,16 @@
     <main class="card">
       <div id="app">
         <div id="intro" class="space-y-4">
-          <p>Diese Demo führt dich durch einen vereinfachten Entscheidungsbaum basierend auf den typischen Fragen zur NIS‑2‑Relevanz (Sektor, Funktion, Rolle als Dienstleister, Größe, Lieferkettenbezug).</p>
+          <p>Diese Demo führt dich durch einen vereinfachten Entscheidungsbaum basierend auf den typischen Fragen zur
+            NIS‑2‑Relevanz (Sektor, Funktion, Rolle als Dienstleister, Größe, Lieferkettenbezug).</p>
           <div class="flex gap-3">
-            <button id="startBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Prüfung starten</button>
-            <button id="loadExample" class="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50">Beispiel laden</button>
-            <button id="downloadReport" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hidden">Report herunterladen</button>
+            <button id="startBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Prüfung
+              starten</button>
+            <button id="loadExample"
+              class="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50">Beispiel
+              laden</button>
+            <button id="downloadReport" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hidden">Report
+              herunterladen</button>
           </div>
         </div>
 
@@ -53,52 +66,86 @@
               <option value="public">Öffentliche Verwaltung</option>
               <option value="other">Sonstiger Sektor</option>
             </select>
-            <p class="muted">Hinweis: NIS‑2 betrifft bestimmte kritische Sektoren; Auswahl steuert die weiteren Fragen.</p>
+            <p class="muted">Hinweis: NIS‑2 betrifft bestimmte kritische Sektoren; Auswahl steuert die weiteren Fragen.
+            </p>
           </section>
 
           <!-- Ebene 2 -->
           <section id="q_function" class="space-y-2 hidden">
             <label class="font-medium">2) Welche Funktion übt Ihr Unternehmen innerhalb dieses Sektors aus?</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <label class="p-2 border rounded-md cursor-pointer" data-value="operator"><input type="radio" name="function" value="operator" class="mr-2"> Betreiber von Netzen / Versorgungsanlagen</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="supplier"><input type="radio" name="function" value="supplier" class="mr-2"> Energieversorger / Lieferant mit Endkunden</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="metering"><input type="radio" name="function" value="metering" class="mr-2"> Betreiber von Messsystemen / Smart‑Meter</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="platform"><input type="radio" name="function" value="platform" class="mr-2"> Anbieter zentraler Marktkommunikationsplattformen</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="service"><input type="radio" name="function" value="service" class="mr-2"> Dienstleister / Subunternehmer (z. B. Abrechnung)</label>
+              <label class="p-2 border rounded-md cursor-pointer" data-value="operator"><input type="radio"
+                  name="function" value="operator" class="mr-2"> Betreiber von Netzen / Versorgungsanlagen</label>
+              <label class="p-2 border rounded-md cursor-pointer" data-value="supplier"><input type="radio"
+                  name="function" value="supplier" class="mr-2"> Energieversorger / Lieferant mit Endkunden</label>
+              <label class="p-2 border rounded-md cursor-pointer" data-value="metering"><input type="radio"
+                  name="function" value="metering" class="mr-2"> Betreiber von Messsystemen / Smart‑Meter</label>
+              <label class="p-2 border rounded-md cursor-pointer" data-value="platform"><input type="radio"
+                  name="function" value="platform" class="mr-2"> Anbieter zentraler
+                Marktkommunikationsplattformen</label>
+              <label class="p-2 border rounded-md cursor-pointer" data-value="service"><input type="radio"
+                  name="function" value="service" class="mr-2"> Dienstleister / Subunternehmer (z. B.
+                Abrechnung)</label>
             </div>
           </section>
 
           <!-- Ebene 3 (Dienstleister) -->
           <div id="serviceQuestions" class="space-y-4 hidden">
             <section class="space-y-2">
-              <label class="font-medium">3.1) Erbringen Sie Dienstleistungen, die für den Betrieb oder die Abrechnung kritischer Energieprozesse wesentlich sind?</label>
+              <label class="font-medium">3.1) Erbringen Sie Dienstleistungen, die für den Betrieb oder die Abrechnung
+                kritischer Energieprozesse wesentlich sind?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="essential" data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="essential" data-value="no">Nein</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="essential"
+                  data-value="yes">Ja</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="essential"
+                  data-value="no">Nein</button>
               </div>
             </section>
 
             <section class="space-y-2">
-              <label class="font-medium">3.2) Betreiben oder hosten Sie eigene IT‑Systeme, Plattformen oder Schnittstellen, über die kritische Daten laufen?</label>
+              <label class="font-medium">3.2) Betreiben oder stellen Sie eigene IT-Systeme bzw. Infrastruktur bereit (z.
+                B. Hosting, Plattform, Rechenzentrum, Cloud), über die produktive oder kritische Daten verarbeitet
+                werden?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="ownSystems" data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="ownSystems" data-value="no">Nein</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="ownSystems"
+                  data-value="yes">Ja</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="ownSystems"
+                  data-value="no">Nein</button>
+              </div>
+            </section>
+
+            <section id="managedService" class="space-y-2 hidden">
+              <label class="font-medium">3.3) Übernehmen Sie den fachlichen oder technischen Betrieb von IT- oder
+                Applikationssystemen Ihrer Kunden (z. B. Konfiguration, Benutzerverwaltung, Release-/Patch-Management,
+                Fehleranalyse, Parametrisierung, Incident-Unterstützung), auch wenn die Systeme extern gehostet
+                werden?</label>
+              <div class="flex gap-2">
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="managedService"
+                  data-value="yes">Ja</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="managedService"
+                  data-value="no">Nein</button>
               </div>
             </section>
 
             <section id="multiTenantWrap" class="space-y-2 hidden">
-              <label class="font-medium">3.3) Werden diese Systeme von mehreren Energieversorgern/Netzbetreibern genutzt (zentrale Rolle)?</label>
+              <label class="font-medium">3.4) Werden diese Systeme von mehreren Energieversorgern/Netzbetreibern genutzt
+                (zentrale Rolle)?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="multiTenant" data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="multiTenant" data-value="no">Nein</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="multiTenant"
+                  data-value="yes">Ja</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="multiTenant"
+                  data-value="no">Nein</button>
               </div>
             </section>
 
             <section id="clientHostedWrap" class="space-y-2 hidden">
-              <label class="font-medium">3.4) Werden Ihre Systeme vollständig durch den Auftraggeber betrieben (Sie liefern nur Personal / Prozesssupport)?</label>
+              <label class="font-medium">3.5) Werden Ihre Systeme vollständig durch den Auftraggeber betrieben (Sie
+                liefern nur Personal / Prozesssupport)?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="clientHosted" data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="clientHosted" data-value="no">Nein</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="clientHosted"
+                  data-value="yes">Ja</button>
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="clientHosted"
+                  data-value="no">Nein</button>
               </div>
             </section>
           </div>
@@ -106,29 +153,39 @@
           <!-- Ebene 4 (Größe / Kritikalität) -->
           <section id="sizeSection" class="space-y-2 hidden">
             <label class="font-medium">4) Unternehmensgröße / Kritikalität</label>
-            <p class="muted">NIS‑2 gilt grundsätzlich für mittlere und große Unternehmen (typisch: &gt;50 Mitarbeitende und &gt;10 Mio. € Jahresumsatz), kann aber auch für kleinere Unternehmen gelten, wenn besondere Kritikalität vorliegt.</p>
+            <p class="muted">NIS‑2 gilt grundsätzlich für mittlere und große Unternehmen (typisch: &gt;50 Mitarbeitende
+              und &gt;10 Mio. € Jahresumsatz), kann aber auch für kleinere Unternehmen gelten, wenn besondere
+              Kritikalität vorliegt.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="large" class="mr-2"> Mittleres / großes Unternehmen (≥50 MA oder &gt;10M€ Umsatz)</label>
-              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="small" class="mr-2"> Klein (<50 MA und ≤10M€ Umsatz)</label>
-              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="critical" class="mr-2"> Klein, aber betreibt kritische zentrale Systeme</label>
+              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="large"
+                  class="mr-2"> Mittleres / großes Unternehmen (≥50 MA oder &gt;10M€ Umsatz)</label>
+              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="small"
+                  class="mr-2"> Klein (<50 MA und ≤10M€ Umsatz)</label>
+                  <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="critical"
+                      class="mr-2"> Klein, aber betreibt kritische zentrale Systeme</label>
             </div>
           </section>
 
           <!-- Ebene 5 (Lieferkette) -->
           <section id="supplyChain" class="space-y-2 hidden">
             <label class="font-medium">5) Lieferkettenbezug</label>
-            <label class="block"><input type="checkbox" id="hasNisClients" class="mr-2"> Ich habe Kunden, die selbst NIS‑2-pflichtig sind (z. B. Netzbetreiber, größere Energieversorger)</label>
-            <label class="block"><input type="checkbox" id="contractRequirements" class="mr-2"> Verträge verlangen IT‑Sicherheitsstandards (ISO27001, BSI‑Grundschutz o.ä.)</label>
-            <label class="block"><input type="checkbox" id="processSensitiveData" class="mr-2"> Ich verarbeite empfindliche Betriebs- oder Kundendaten meiner Auftraggeber</label>
+            <label class="block"><input type="checkbox" id="hasNisClients" class="mr-2"> Ich habe Kunden, die selbst
+              NIS‑2-pflichtig sind (z. B. Netzbetreiber, größere Energieversorger)</label>
+            <label class="block"><input type="checkbox" id="contractRequirements" class="mr-2"> Verträge verlangen
+              IT‑Sicherheitsstandards (ISO27001, BSI‑Grundschutz o.ä.)</label>
+            <label class="block"><input type="checkbox" id="processSensitiveData" class="mr-2"> Ich verarbeite
+              empfindliche Betriebs- oder Kundendaten meiner Auftraggeber</label>
           </section>
 
           <div class="pt-4 border-t"></div>
 
           <div class="flex items-center justify-between">
-            <div class="text-sm muted">Antworten werden lokal verarbeitet. Dies ist eine Entscheidungshilfe, keine rechtliche Beratung.</div>
+            <div class="text-sm muted">Antworten werden lokal verarbeitet. Dies ist eine Entscheidungshilfe, keine
+              rechtliche Beratung.</div>
             <div class="flex gap-2">
               <button type="button" id="backBtn" class="px-3 py-2 rounded-md border">Zurück</button>
-              <button type="button" id="evaluateBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Bewertung anzeigen</button>
+              <button type="button" id="evaluateBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Bewertung
+                anzeigen</button>
             </div>
           </div>
         </form>
@@ -159,7 +216,8 @@
       </div>
     </main>
 
-    <footer class="mt-4 text-sm muted">Demo / Prototyp — nicht rechtsverbindlich. Quellen: NIS‑2 Richtlinie, BSI‑Hinweise, Best Practices.</footer>
+    <footer class="mt-4 text-sm muted">Demo / Prototyp — nicht rechtsverbindlich. Quellen: NIS‑2 Richtlinie,
+      BSI‑Hinweise, Best Practices.</footer>
   </div>
 
   <script>
@@ -191,6 +249,7 @@
       func: null,
       essential: null,
       ownSystems: null,
+      managedService: null,
       multiTenant: null,
       clientHosted: null,
       size: null,
@@ -204,7 +263,7 @@
       intro.classList.add('hidden');
       quizForm.classList.remove('hidden');
       q_function.classList.add('hidden');
-      document.getElementById('q_sector').scrollIntoView({behavior:'smooth'});
+      document.getElementById('q_sector').scrollIntoView({ behavior: 'smooth' });
     });
 
     loadExample.addEventListener('click', () => {
@@ -220,6 +279,7 @@
       // service answers
       state.essential = true;
       state.ownSystems = true;
+      state.managedService = true;
       state.multiTenant = true;
       // size small but critical
       document.querySelector('input[name=size][value=critical]').checked = true;
@@ -236,10 +296,10 @@
 
     sector.addEventListener('change', onSectorChange);
 
-    function onSectorChange(){
+    function onSectorChange() {
       const val = sector.value;
       state.sector = val || null;
-      if(!val) {
+      if (!val) {
         q_function.classList.add('hidden');
         serviceQuestions.classList.add('hidden');
         sizeSection.classList.add('hidden');
@@ -248,17 +308,17 @@
       }
       q_function.classList.remove('hidden');
       // reset function selection
-      document.querySelectorAll('input[name=function]').forEach(i=>i.checked=false);
+      document.querySelectorAll('input[name=function]').forEach(i => i.checked = false);
       state.func = null;
       // show/hide further sections depending on selection
-      [...document.querySelectorAll('input[name=function]')].forEach(el=>el.addEventListener('change', onFunctionChange));
+      [...document.querySelectorAll('input[name=function]')].forEach(el => el.addEventListener('change', onFunctionChange));
     }
 
-    function onFunctionChange(e){
+    function onFunctionChange(e) {
       const v = e.target.value;
       state.func = v;
       // If service -> show service questions; otherwise show size
-      if(v === 'service'){
+      if (v === 'service') {
         showServiceQuestions();
       } else {
         serviceQuestions.classList.add('hidden');
@@ -267,23 +327,29 @@
       }
     }
 
-    function showServiceQuestions(){
+    function showServiceQuestions() {
       serviceQuestions.classList.remove('hidden');
       document.getElementById('sizeSection').classList.remove('hidden');
       document.getElementById('supplyChain').classList.remove('hidden');
+
       // attach Y/N buttons
-      document.querySelectorAll('.btn-yn').forEach(btn=>{
-        btn.addEventListener('click', (ev)=>{
+      document.querySelectorAll('.btn-yn').forEach(btn => {
+        btn.addEventListener('click', (ev) => {
+
           const target = ev.currentTarget.dataset.target;
           const val = ev.currentTarget.dataset.value === 'yes';
-          // visual
+
+          // Visual highlight
           const group = document.querySelectorAll(`.btn-yn[data-target="${target}"]`);
-          group.forEach(g=>g.classList.remove('bg-indigo-600','text-white'));
-          ev.currentTarget.classList.add('bg-indigo-600','text-white');
+          group.forEach(g => g.classList.remove('bg-indigo-600', 'text-white'));
+          ev.currentTarget.classList.add('bg-indigo-600', 'text-white');
+
+          // Update state
           state[target] = val;
 
-          if(target === 'ownSystems'){
-            if(val) {
+          // Speziallogik für ownSystems → entscheidet 3.4 oder 3.5
+          if (target === 'ownSystems') {
+            if (val) {
               document.getElementById('multiTenantWrap').classList.remove('hidden');
               document.getElementById('clientHostedWrap').classList.add('hidden');
             } else {
@@ -291,28 +357,33 @@
               document.getElementById('clientHostedWrap').classList.remove('hidden');
             }
           }
-          if(target === 'multiTenant'){
-            state.multiTenant = val;
-          }
-          if(target === 'clientHosted'){
-            state.clientHosted = val;
-          }
-          if(target === 'essential'){
-            state.essential = val;
-          }
+
+          // multiTenant
+          if (target === 'multiTenant') state.multiTenant = val;
+
+          // clientHosted
+          if (target === 'clientHosted') state.clientHosted = val;
+
+          // essentielle Dienstleistung
+          if (target === 'essential') state.essential = val;
+
+          // MSP / Applikationsbetrieb (NEU!)
+          if (target === 'managedService') state.managedService = val;
+
         });
       });
     }
 
+
     // size radio
-    document.querySelectorAll('input[name=size]').forEach(el=>el.addEventListener('change', (e)=>{ state.size = e.target.value; }));
+    document.querySelectorAll('input[name=size]').forEach(el => el.addEventListener('change', (e) => { state.size = e.target.value; }));
 
     // supply chain checkboxes
-    document.getElementById('hasNisClients').addEventListener('change', e=> state.hasNisClients = e.target.checked);
-    document.getElementById('contractRequirements').addEventListener('change', e=> state.contractRequirements = e.target.checked);
-    document.getElementById('processSensitiveData').addEventListener('change', e=> state.processSensitiveData = e.target.checked);
+    document.getElementById('hasNisClients').addEventListener('change', e => state.hasNisClients = e.target.checked);
+    document.getElementById('contractRequirements').addEventListener('change', e => state.contractRequirements = e.target.checked);
+    document.getElementById('processSensitiveData').addEventListener('change', e => state.processSensitiveData = e.target.checked);
 
-    backBtn.addEventListener('click', ()=>{
+    backBtn.addEventListener('click', () => {
       // Einfach: zurück zum intro
       intro.classList.remove('hidden');
       quizForm.classList.add('hidden');
@@ -322,127 +393,228 @@
 
     evaluateBtn.addEventListener('click', evaluate);
 
-    function evaluate(){
+    function evaluate() {
       // Basic validation
-      if(!state.sector){ alert('Bitte wähle zuerst einen Sektor.'); return; }
-      if(!state.func){ alert('Bitte wähle die Funktion Deines Unternehmens.'); return; }
+      if (!state.sector) { alert('Bitte wähle zuerst einen Sektor.'); return; }
+      if (!state.func) { alert('Bitte wähle die Funktion Deines Unternehmens.'); return; }
       // if service, ensure essential answered
-      if(state.func === 'service' && state.essential===null){ alert('Bitte beantworte, ob Du essentielle Dienstleistungen erbringst.'); return; }
+      if (state.func === 'service' && state.essential === null) { alert('Bitte beantworte, ob Du essentielle Dienstleistungen erbringst.'); return; }
       // determine result
       const r = computeResult(state);
       state.result = r;
       showResult(r);
     }
 
-    function computeResult(s){
-      // Direct rules
-      // If sector is one of critical sectors and function is operator/supplier/platform OR service with multiTenant+ownSystems+large/critical -> direct
-      const critSectors = ['energy','transport','finance','health','water','digital','public'];
-      if(critSectors.includes(s.sector)){
-        if(['operator','supplier','metering','platform'].includes(s.func)){
-          // check size
-          if(s.size === 'large' || s.size === 'critical') return {category:'A', label:'Direkt betroffen (essenzielle/wichtige Einrichtung)'};
-          if(s.size === 'small') return {category:'B', label:'Wahrscheinlich direkt betroffen (abhängig von Kritikalität)'};
+    function computeResult(state) {
+      const s = state;
+      const critSectors = ['energy', 'water', 'health', 'transport', 'digital', 'ict'];
+
+      const inCriticalSector = critSectors.includes(s.sector);
+      const isCriticalSize = (s.size === 'large' || s.size === 'critical');
+      const managesCriticalService =
+        (s.essential || s.processSensitiveData || s.contractRequirements || s.hasNisClients);
+
+      // Neues MSP-Kriterium
+      const isMSP = s.managedService;
+
+      // ---------------------------------------------
+      // 1) Betreiber / Infrastruktur
+      // ---------------------------------------------
+      if (s.func === 'operator') {
+        if (inCriticalSector && isCriticalSize) {
+          return {
+            category: 'A',
+            label: 'Direkt betroffen (essentielle Einrichtung – Betreiber)',
+            details: 'Sie betreiben kritische Infrastrukturen oder ICT-Systeme eines NIS-2-Kernsektors.'
+          };
         }
-        if(s.func === 'service'){
-          if(s.ownSystems && s.multiTenant && (s.size === 'large' || s.size==='critical')){
-            return {category:'A', label:'Direkt betroffen (zentrale digitale Rolle)'};
-          }
-          if(s.ownSystems && s.multiTenant && s.size === 'small'){
-            return {category:'B', label:'Möglicherweise direkt betroffen (zentrale Plattform, Prüfung empfohlen)'};
-          }
-          // if clientHosted or no own systems but has NIS clients etc -> indirect
-          if(s.clientHosted || s.hasNisClients || s.contractRequirements || s.processSensitiveData){
-            return {category:'C', label:'Indirekt betroffen (Lieferkette / vertragliche Anforderungen)'};
-          }
+
+        if (inCriticalSector && managesCriticalService) {
+          return {
+            category: 'B',
+            label: 'Wahrscheinlich direkt betroffen (wichtige Einrichtung – Betreiber)',
+            details: 'Sie verantworten Systeme im kritischen Sektor, deren Ausfall wesentliche Auswirkungen hätte.'
+          };
         }
+
+        return {
+          category: 'C',
+          label: 'Indirekt betroffen',
+          details: 'Sie sind Betreiber, jedoch ohne kritische Relevanz nach NIS-2.'
+        };
       }
-      // Non-critical sector
-      if(s.hasNisClients || s.contractRequirements || s.processSensitiveData){
-        return {category:'C', label:'Indirekt betroffen (Dienstleister für NIS‑2-Unternehmen)'};
+
+      // ---------------------------------------------
+      // 2) Dienstleister / Managed Service Provider
+      // ---------------------------------------------
+      if (s.func === 'service') {
+
+        // 2.1 Direkt betroffen als MSP oder Plattformanbieter
+        if (inCriticalSector && isCriticalSize && (s.ownSystems || isMSP)) {
+          return {
+            category: 'A',
+            label: 'Direkt betroffen (wichtige Einrichtung – Managed Service Provider)',
+            details: 'Als MSP/ICT-Dienstleister übernehmen Sie operative Systemverantwortung im kritischen Sektor. ' +
+              'NIS-2 betrachtet MSPs explizit als eigene regulierte Einrichtungen.'
+          };
+        }
+
+        // 2.2 Kritischer MSP ohne große Unternehmensgröße
+        if (inCriticalSector && managesCriticalService && isMSP) {
+          return {
+            category: 'B',
+            label: 'Wahrscheinlich direkt betroffen (kritischer MSP – vertiefte Prüfung empfohlen)',
+            details: 'Sie übernehmen dauerhaften Applikations- oder Systembetrieb im kritischen Sektor. ' +
+              'Die Einstufung als wichtige Einrichtung ist wahrscheinlich.'
+          };
+        }
+
+        // 2.3 Indirekte Betroffenheit aus Lieferkette
+        if (s.clientHosted || s.hasNisClients || s.contractRequirements || s.processSensitiveData) {
+          return {
+            category: 'C',
+            label: 'Indirekt betroffen (Lieferkette / vertragliche Pflichten)',
+            details: 'Sie sind Teil der Lieferkette eines NIS-2-pflichtigen Unternehmens, ohne eigene Betriebsverantwortung.'
+          };
+        }
+
+        return {
+          category: 'C',
+          label: 'Indirekt betroffen',
+          details: 'Keine direkte kritische Rolle nach NIS-2 erkennbar.'
+        };
       }
-      return {category:'D', label:'Nicht betroffen (außerhalb des Anwendungsbereichs)'};
+
+      // ---------------------------------------------
+      // 3) Beratung / Sonstige Rollen
+      // ---------------------------------------------
+      return {
+        category: 'C',
+        label: 'Indirekt betroffen',
+        details: 'Beratende Tätigkeiten fallen nur über vertragliche Anforderungen unter NIS-2.'
+      };
     }
 
-    function showResult(r){
+
+    function showResult(r) {
+
       quizForm.classList.add('hidden');
       resultDiv.classList.remove('hidden');
-      resultTitle.textContent = r.label;
-      // Build summary & explanation
-      let summary = '';
-      if(r.category === 'A') summary = 'Ihr Unternehmen ist sehr wahrscheinlich direkt von NIS‑2 betroffen. Es fällt unter die Pflichten für essenzielle bzw. wichtige Einrichtungen.';
-      if(r.category === 'B') summary = 'Ihr Unternehmen könnte direkt betroffen sein — eine genauere Prüfung der Kritikalität ist notwendig.';
-      if(r.category === 'C') summary = 'Ihr Unternehmen ist indirekt betroffen: Als Dienstleister für NIS‑2-pflichtige Kunden bestehen vertragliche und technische Sicherheitsanforderungen.';
-      if(r.category === 'D') summary = 'Ihr Unternehmen ist nach den erfassten Informationen voraussichtlich nicht von NIS‑2 betroffen.';
-      resultSummary.textContent = summary;
 
-      // explanation
+      // Titel
+      resultTitle.textContent = r.label;
+
+      // Summary
+      let summary = '';
+      if (r.category === 'A') summary = 'Ihr Unternehmen ist sehr wahrscheinlich direkt von NIS-2 betroffen. Es fällt unter die Pflichten für essenzielle bzw. wichtige Einrichtungen.';
+      if (r.category === 'B') summary = 'Ihr Unternehmen könnte direkt betroffen sein — eine genauere Prüfung der Kritikalität ist notwendig.';
+      if (r.category === 'C') summary = 'Ihr Unternehmen ist indirekt betroffen: Als Dienstleister für NIS-2-pflichtige Kunden bestehen vertragliche und technische Sicherheitsanforderungen.';
+      if (r.category === 'D') summary = 'Ihr Unternehmen ist nach den erfassten Informationen voraussichtlich nicht von NIS-2 betroffen.';
+
+      resultSummary.innerHTML = summary;
+
+      // -------------------------------------------------
+      // MSP-Hinweisblock EINBLENDEN (NEU)
+      // -------------------------------------------------
+      if (state.managedService) {
+        resultSummary.innerHTML += `
+      <div class="mt-3 p-3 border-l-4 border-indigo-600 bg-indigo-50 rounded">
+        <strong>Hinweis: Managed Service Provider (MSP)</strong><br>
+        Sie übernehmen operative Aufgaben im Applikations- oder Systembetrieb Ihrer Kunden.
+        Dadurch gelten Sie als eigenständig regulierte Einrichtung unter NIS-2
+        (wichtige Einrichtung / MSP) – unabhängig davon, ob Sie selbst hosten.
+      </div>`;
+      }
+
+      // -------------------------------------------------
+      // DETAILDARSTELLUNG
+      // -------------------------------------------------
       const expl = [];
       expl.push('Sektor: ' + (state.sector || '—'));
       expl.push('Funktion: ' + (state.func || '—'));
-      if(state.func === 'service'){
-        expl.push('Erbringt essentielle Dienstleistungen: ' + (state.essential? 'Ja':'Nein'));
-        expl.push('Eigene Systeme/Plattformen: ' + (state.ownSystems? 'Ja':'Nein'));
-        if(state.ownSystems) expl.push('Mehrere Kunden (zentral): ' + (state.multiTenant? 'Ja':'Nein'));
-        if(!state.ownSystems) expl.push('System vollständig durch Kunden betrieben: ' + (state.clientHosted? 'Ja':'Nein'));
+
+      if (state.func === 'service') {
+        expl.push('Erbringt essentielle Dienstleistungen: ' + (state.essential ? 'Ja' : 'Nein'));
+        expl.push('Eigene Systeme/Plattformen (Hosting): ' + (state.ownSystems ? 'Ja' : 'Nein'));
+
+        if (state.ownSystems)
+          expl.push('Mehrere Kunden (zentral): ' + (state.multiTenant ? 'Ja' : 'Nein'));
+
+        if (!state.ownSystems)
+          expl.push('System vollständig durch Kunden betrieben: ' + (state.clientHosted ? 'Ja' : 'Nein'));
+
+        // MSP-Kriterium (NEU)
+        expl.push('Applikations- / Systembetrieb (MSP-Rolle): ' + (state.managedService ? 'Ja' : 'Nein'));
       }
+
       expl.push('Unternehmensgröße/Kritikalität: ' + (state.size || '—'));
-      expl.push('Kunden sind NIS‑2-pflichtig: ' + (state.hasNisClients? 'Ja':'Nein'));
-      expl.push('Vertragliche Sicherheitsanforderungen: ' + (state.contractRequirements? 'Ja':'Nein'));
-      expl.push('Verarbeitung sensibler Daten: ' + (state.processSensitiveData? 'Ja':'Nein'));
+      expl.push('Kunden sind NIS-2-pflichtig: ' + (state.hasNisClients ? 'Ja' : 'Nein'));
+      expl.push('Vertragliche Sicherheitsanforderungen: ' + (state.contractRequirements ? 'Ja' : 'Nein'));
+      expl.push('Verarbeitung sensibler Daten: ' + (state.processSensitiveData ? 'Ja' : 'Nein'));
 
-      explainText.innerHTML = expl.map(x=>'<div>'+x+'</div>').join('');
+      explainText.innerHTML = expl.map(x => '<div>' + x + '</div>').join('');
 
-      // recommendations
+      // -------------------------------------------------
+      // EMPFEHLUNGEN
+      // -------------------------------------------------
       const recs = [];
-      if(r.category === 'A' || r.category === 'B'){
-        recs.push('Unmittelbare NIS‑2‑Konformitätsprüfung durchführen (Risikomanagement, Meldepflichten, Governance).');
-        recs.push('ISMS einführen oder nachweisen (z. B. ISO 27001 / BSI‑Grundschutz).');
-        recs.push('Technische Maßnahmen: Zugriffskontrolle, Patch‑Management, Logging, Segmentierung.');
-      }
-      if(r.category === 'C'){
-        recs.push('Vertragliche Anforderungen Ihrer Auftragsverhältnisse prüfen und erfüllen (SLAs, Auditrechte).');
-        recs.push('Basis‑ISMS und Nachweismaßnahmen implementieren (Zugriffsrollen, Verschlüsselung, Backup).');
-        recs.push('Sicherheitsnachweise gegenüber Kunden bereitstellen (z. B. Audit‑Reports).');
-      }
-      if(r.category === 'D'){
-        recs.push('Grundlegende Cyber‑Hygiene sicherstellen (Passwortmanagement, Updates, Backups).');
-        recs.push('Bei Geschäften mit NIS‑2 relevanten Kunden vorbereitende Maßnahmen einplanen.');
+
+      if (r.category === 'A' || r.category === 'B') {
+        recs.push('Unmittelbare NIS-2-Konformitätsprüfung durchführen (Risikomanagement, Meldepflichten, Governance).');
+        recs.push('ISMS einführen oder nachweisen (z. B. ISO 27001 / BSI-Grundschutz).');
+        recs.push('Technische Maßnahmen: Zugriffskontrolle, Patch-Management, Logging, Segmentierung.');
+
+        // Zusätzliche MSP-Empfehlung (NEU)
+        if (state.managedService) {
+          recs.push('Als MSP besonders wichtig: klare Rollen- und Rechtemodelle, technische Admin-Prozesse, '
+            + 'sowie Sicherheitskontrollen gegenüber Ihrem eigenen IT-Dienstleister (Lieferkette).');
+        }
       }
 
-      recommendations.innerHTML = recs.map(x=>'<li>'+x+'</li>').join('');
+      if (r.category === 'C') {
+        recs.push('Vertragliche Anforderungen Ihrer Kunden prüfen und erfüllen (SLAs, Auditrechte).');
+        recs.push('Basis-ISMS und Nachweismaßnahmen implementieren (Zugriffsrollen, Verschlüsselung, Backup).');
+        recs.push('Sicherheitsnachweise gegenüber Kunden bereitstellen (z. B. Audit-Reports).');
+      }
 
-      // show download button
+      if (r.category === 'D') {
+        recs.push('Grundlegende Cyber-Hygiene sicherstellen (Passwortmanagement, Updates, Backups).');
+        recs.push('Bei Geschäften mit NIS-2-relevanten Kunden vorbereitende Maßnahmen einplanen.');
+      }
+
+      recommendations.innerHTML = recs.map(x => '<li>' + x + '</li>').join('');
+
       downloadReport.classList.remove('hidden');
     }
 
     // generate simple PDF via window.print (prints page) — minimal approach for demo
-    generatePDF.addEventListener('click', ()=>{
+    generatePDF.addEventListener('click', () => {
       window.print();
     });
 
     // download JSON report
-    downloadReport.addEventListener('click', ()=>{
+    downloadReport.addEventListener('click', () => {
       const report = {
         timestamp: new Date().toISOString(),
         state, result: state.result
       };
-      const blob = new Blob([JSON.stringify(report, null, 2)], {type:'application/json'});
+      const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = 'nis2_report_'+new Date().toISOString().slice(0,19).replace(/[:T]/g,'_')+'.json';
+      a.href = url; a.download = 'nis2_report_' + new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_') + '.json';
       document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     });
 
     // refine
-    document.getElementById('refineBtn').addEventListener('click', ()=>{
+    document.getElementById('refineBtn').addEventListener('click', () => {
       resultDiv.classList.add('hidden');
       quizForm.classList.remove('hidden');
     });
 
     // small accessibility: allow Enter to start when focused on startBtn
-    startBtn.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') startBtn.click(); });
+    startBtn.addEventListener('keyup', (e) => { if (e.key === 'Enter') startBtn.click(); });
 
   </script>
 </body>
+
 </html>
