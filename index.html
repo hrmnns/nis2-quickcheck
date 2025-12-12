@@ -66,7 +66,6 @@
         </div>
 
         <form id="quizForm" class="hidden mt-4 space-y-6">
-          <div id="stepIndicator" class="flex flex-wrap gap-3 p-3 rounded-xl bg-slate-100" aria-label="Schritte"></div>
           <!-- Ebene 1 -->
           <section id="q_sector" class="space-y-2" tabindex="-1">
             <label class="font-medium">1) In welchem Sektor ist Ihr Unternehmen tätig?</label>
@@ -199,8 +198,6 @@
               rechtliche Beratung.</div>
             <div class="flex gap-2">
               <button type="button" id="backBtn" class="px-3 py-2 rounded-md border focus-ring">Zurück</button>
-              <button type="button" id="nextStepBtn"
-                class="px-3 py-2 rounded-md border border-indigo-200 text-indigo-700 bg-indigo-50 focus-ring">Weiter</button>
               <button type="button" id="evaluateBtn"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg focus-ring" disabled>Bewertung
                 anzeigen</button>
@@ -245,7 +242,6 @@
     const loadExample = document.getElementById('loadExample');
     const quizForm = document.getElementById('quizForm');
     const intro = document.getElementById('intro');
-    const stepIndicator = document.getElementById('stepIndicator');
 
     const sector = document.getElementById('sector');
     const q_function = document.getElementById('q_function');
@@ -255,7 +251,6 @@
 
     const backBtn = document.getElementById('backBtn');
     const evaluateBtn = document.getElementById('evaluateBtn');
-    const nextStepBtn = document.getElementById('nextStepBtn');
     const resultDiv = document.getElementById('result');
     const resultTitle = document.getElementById('resultTitle');
     const resultSummary = document.getElementById('resultSummary');
@@ -281,16 +276,12 @@
       result: null
     };
 
-    let currentStepIndex = 0;
-    let steps = [];
-
     startBtn.addEventListener('click', () => {
       intro.classList.add('hidden');
       quizForm.classList.remove('hidden');
       q_function.classList.add('hidden');
       document.getElementById('q_sector').scrollIntoView({ behavior: 'smooth' });
-      currentStepIndex = 0;
-      updateStepIndicator();
+      updateEvaluateState();
     });
 
     loadExample.addEventListener('click', () => {
@@ -320,8 +311,7 @@
       document.getElementById('sizeSection').classList.remove('hidden');
       document.getElementById('supplyChain').classList.remove('hidden');
       refreshYesNoStates();
-      currentStepIndex = getSteps().length - 2;
-      updateStepIndicator();
+      updateEvaluateState();
     });
 
     sector.addEventListener('change', onSectorChange);
@@ -336,7 +326,7 @@
         supplyChain.classList.add('hidden');
         state.func = null;
         refreshYesNoStates();
-        updateStepIndicator();
+        updateEvaluateState();
         return;
       }
       q_function.classList.remove('hidden');
@@ -345,8 +335,7 @@
       state.func = null;
       // show/hide further sections depending on selection
       [...document.querySelectorAll('input[name=function]')].forEach(el => el.addEventListener('change', onFunctionChange));
-      currentStepIndex = 1;
-      updateStepIndicator();
+      updateEvaluateState();
     }
 
     function onFunctionChange(e) {
@@ -361,8 +350,7 @@
         document.getElementById('supplyChain').classList.remove('hidden');
       }
       refreshYesNoStates();
-      currentStepIndex = Math.min(currentStepIndex, getSteps().length - 2);
-      updateStepIndicator();
+      updateEvaluateState();
     }
 
     function showServiceQuestions() {
@@ -413,7 +401,7 @@
           if (target === 'managedService') state.managedService = val;
 
           refreshYesNoStates();
-          updateStepIndicator();
+          updateEvaluateState();
         });
       });
     }
@@ -422,14 +410,14 @@
     // size radio
     document.querySelectorAll('input[name=size]').forEach(el => el.addEventListener('change', (e) => {
       state.size = e.target.value;
-      updateStepIndicator();
+      updateEvaluateState();
       setValidationMessage('');
     }));
 
     // supply chain checkboxes
-    document.getElementById('hasNisClients').addEventListener('change', e => { state.hasNisClients = e.target.checked; setValidationMessage(''); });
-    document.getElementById('contractRequirements').addEventListener('change', e => { state.contractRequirements = e.target.checked; setValidationMessage(''); });
-    document.getElementById('processSensitiveData').addEventListener('change', e => { state.processSensitiveData = e.target.checked; setValidationMessage(''); });
+    document.getElementById('hasNisClients').addEventListener('change', e => { state.hasNisClients = e.target.checked; setValidationMessage(''); updateEvaluateState(); });
+    document.getElementById('contractRequirements').addEventListener('change', e => { state.contractRequirements = e.target.checked; setValidationMessage(''); updateEvaluateState(); });
+    document.getElementById('processSensitiveData').addEventListener('change', e => { state.processSensitiveData = e.target.checked; setValidationMessage(''); updateEvaluateState(); });
 
     backBtn.addEventListener('click', () => {
       // Einfach: zurück zum intro
@@ -441,19 +429,6 @@
     });
 
     evaluateBtn.addEventListener('click', evaluate);
-    nextStepBtn.addEventListener('click', () => {
-      const stepId = steps[currentStepIndex]?.id;
-      if (stepId && !isStepValid(stepId)) {
-        showInlineValidation(stepId);
-        return;
-      }
-      setValidationMessage('');
-      if (currentStepIndex < steps.length - 2) {
-        currentStepIndex++;
-        focusCurrentSection();
-        updateStepIndicator();
-      }
-    });
 
     function setValidationMessage(msg) {
       if (!msg) {
@@ -466,7 +441,7 @@
     }
 
     function evaluate() {
-      const firstInvalid = steps.find(s => !isStepValid(s.id));
+      const firstInvalid = getSteps().find(s => !isStepValid(s.id));
       if (firstInvalid) {
         showInlineValidation(firstInvalid.id);
         return;
@@ -475,8 +450,6 @@
       const r = computeResult(state);
       state.result = r;
       showResult(r);
-      currentStepIndex = getSteps().length - 1;
-      updateStepIndicator();
     }
 
     function showInlineValidation(stepId) {
@@ -486,8 +459,8 @@
       if (stepId === 'serviceQuestions') message = 'Bitte beantworte die Dienstleistungsfragen vollständig.';
       if (stepId === 'sizeSection') message = 'Bitte wähle eine Angabe zur Unternehmensgröße.';
       setValidationMessage(message);
-      focusCurrentSection(stepId);
-      updateNavigationState();
+      document.getElementById(stepId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updateEvaluateState();
     }
 
     function getSteps() {
@@ -500,7 +473,6 @@
       }
       base.push({ id: 'sizeSection', label: 'Größe/Kritikalität' });
       base.push({ id: 'supplyChain', label: 'Lieferkette' });
-      base.push({ id: 'result', label: 'Ergebnis' });
       return base;
     }
 
@@ -518,54 +490,9 @@
       return true;
     }
 
-    function updateStepIndicator() {
-      steps = getSteps();
-      stepIndicator.innerHTML = '';
-
-      steps.forEach((step, index) => {
-        const status = index < currentStepIndex ? 'done' : index === currentStepIndex ? 'current' : 'upcoming';
-        const wrapper = document.createElement('div');
-        wrapper.className = 'step-item';
-        const badge = document.createElement('div');
-        badge.className = 'step-badge';
-        badge.textContent = index + 1;
-
-        if (status === 'done') {
-          badge.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-        } else if (status === 'current') {
-          badge.classList.add('border-indigo-600', 'text-indigo-700');
-        } else {
-          badge.classList.add('border-slate-200', 'text-slate-400');
-        }
-
-        const label = document.createElement('span');
-        label.textContent = step.label;
-        wrapper.appendChild(badge);
-        wrapper.appendChild(label);
-        stepIndicator.appendChild(wrapper);
-      });
-
-      updateNavigationState();
-    }
-
-    function updateNavigationState() {
-      const isLastQuestionStep = currentStepIndex >= steps.length - 2;
-      nextStepBtn.classList.toggle('hidden', isLastQuestionStep);
-      evaluateBtn.classList.toggle('hidden', !isLastQuestionStep);
-      const hasInvalid = steps.some(step => step.id !== 'result' && !isStepValid(step.id));
-      nextStepBtn.disabled = !isStepValid(steps[currentStepIndex]?.id || '');
-      evaluateBtn.disabled = !isLastQuestionStep || hasInvalid;
-
-      const currentId = steps[currentStepIndex]?.id;
-      if (currentId) {
-        document.getElementById(currentId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-
-    function focusCurrentSection(idOverride) {
-      const targetId = idOverride || steps[currentStepIndex]?.id;
-      const el = document.getElementById(targetId);
-      if (el) el.focus({ preventScroll: true });
+    function updateEvaluateState() {
+      const hasInvalid = getSteps().some(step => !isStepValid(step.id));
+      evaluateBtn.disabled = hasInvalid;
     }
 
     function refreshYesNoStates() {
@@ -812,16 +739,15 @@
       quizForm.classList.remove('hidden');
       setValidationMessage('');
       refreshYesNoStates();
-      currentStepIndex = steps.findIndex(s => s.id === 'supplyChain');
-      if (currentStepIndex < 0) currentStepIndex = steps.length - 2;
-      updateStepIndicator();
+      updateEvaluateState();
+      document.getElementById('q_sector').scrollIntoView({ behavior: 'smooth' });
     });
 
     // small accessibility: allow Enter to start when focused on startBtn
     startBtn.addEventListener('keyup', (e) => { if (e.key === 'Enter') startBtn.click(); });
 
-    // initial indicator state
-    updateStepIndicator();
+    // initial button state
+    updateEvaluateState();
 
   </script>
 </body>
