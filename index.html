@@ -16,6 +16,18 @@
     .muted {
       @apply text-sm text-gray-500;
     }
+
+    .focus-ring {
+      @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500;
+    }
+
+    .step-item {
+      @apply flex items-center gap-2 text-sm;
+    }
+
+    .step-badge {
+      @apply h-7 w-7 flex items-center justify-center rounded-full border font-semibold;
+    }
   </style>
 </head>
 
@@ -41,21 +53,24 @@
           <p>Diese Demo führt dich durch einen vereinfachten Entscheidungsbaum basierend auf den typischen Fragen zur
             NIS‑2‑Relevanz (Sektor, Funktion, Rolle als Dienstleister, Größe, Lieferkettenbezug).</p>
           <div class="flex gap-3">
-            <button id="startBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Prüfung
+            <button id="startBtn"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus-ring">Prüfung
               starten</button>
             <button id="loadExample"
-              class="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50">Beispiel
+              class="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 focus-ring">Beispiel
               laden</button>
-            <button id="downloadReport" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hidden">Report
+            <button id="downloadReport"
+              class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hidden focus-ring">Report
               herunterladen</button>
           </div>
         </div>
 
         <form id="quizForm" class="hidden mt-4 space-y-6">
+          <div id="stepIndicator" class="flex flex-wrap gap-3 p-3 rounded-xl bg-slate-100" aria-label="Schritte"></div>
           <!-- Ebene 1 -->
-          <section id="q_sector" class="space-y-2">
+          <section id="q_sector" class="space-y-2" tabindex="-1">
             <label class="font-medium">1) In welchem Sektor ist Ihr Unternehmen tätig?</label>
-            <select id="sector" class="w-full rounded-md border-gray-200 shadow-sm p-2">
+            <select id="sector" class="w-full rounded-md border-gray-200 shadow-sm p-2 focus-ring">
               <option value="">-- Bitte wählen --</option>
               <option value="energy">Energie (Strom, Gas, Öl, Fernwärme)</option>
               <option value="transport">Verkehr</option>
@@ -71,33 +86,33 @@
           </section>
 
           <!-- Ebene 2 -->
-          <section id="q_function" class="space-y-2 hidden">
+          <section id="q_function" class="space-y-2 hidden" tabindex="-1">
             <label class="font-medium">2) Welche Funktion übt Ihr Unternehmen innerhalb dieses Sektors aus?</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <label class="p-2 border rounded-md cursor-pointer" data-value="operator"><input type="radio"
-                  name="function" value="operator" class="mr-2"> Betreiber von Netzen / Versorgungsanlagen</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="supplier"><input type="radio"
-                  name="function" value="supplier" class="mr-2"> Energieversorger / Lieferant mit Endkunden</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="metering"><input type="radio"
-                  name="function" value="metering" class="mr-2"> Betreiber von Messsystemen / Smart‑Meter</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="platform"><input type="radio"
-                  name="function" value="platform" class="mr-2"> Anbieter zentraler
+              <label class="p-2 border rounded-md cursor-pointer focus-ring" data-value="operator"><input type="radio"
+                  name="function" value="operator" class="mr-2 focus-ring"> Betreiber von Netzen / Versorgungsanlagen</label>
+              <label class="p-2 border rounded-md cursor-pointer focus-ring" data-value="supplier"><input type="radio"
+                  name="function" value="supplier" class="mr-2 focus-ring"> Energieversorger / Lieferant mit Endkunden</label>
+              <label class="p-2 border rounded-md cursor-pointer focus-ring" data-value="metering"><input type="radio"
+                  name="function" value="metering" class="mr-2 focus-ring"> Betreiber von Messsystemen / Smart‑Meter</label>
+              <label class="p-2 border rounded-md cursor-pointer focus-ring" data-value="platform"><input type="radio"
+                  name="function" value="platform" class="mr-2 focus-ring"> Anbieter zentraler
                 Marktkommunikationsplattformen</label>
-              <label class="p-2 border rounded-md cursor-pointer" data-value="service"><input type="radio"
-                  name="function" value="service" class="mr-2"> Dienstleister / Subunternehmer (z. B.
+              <label class="p-2 border rounded-md cursor-pointer focus-ring" data-value="service"><input type="radio"
+                  name="function" value="service" class="mr-2 focus-ring"> Dienstleister / Subunternehmer (z. B.
                 Abrechnung)</label>
             </div>
           </section>
 
           <!-- Ebene 3 (Dienstleister) -->
-          <div id="serviceQuestions" class="space-y-4 hidden">
+          <div id="serviceQuestions" class="space-y-4 hidden" tabindex="-1">
             <section class="space-y-2">
               <label class="font-medium">3.1) Erbringen Sie Dienstleistungen, die für den Betrieb oder die Abrechnung
                 kritischer Energieprozesse wesentlich sind?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="essential"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="essential"
                   data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="essential"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="essential"
                   data-value="no">Nein</button>
               </div>
             </section>
@@ -107,9 +122,9 @@
                 B. Hosting, Plattform, Rechenzentrum, Cloud), über die produktive oder kritische Daten verarbeitet
                 werden?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="ownSystems"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="ownSystems"
                   data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="ownSystems"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="ownSystems"
                   data-value="no">Nein</button>
               </div>
             </section>
@@ -120,9 +135,9 @@
                 Fehleranalyse, Parametrisierung, Incident-Unterstützung), auch wenn die Systeme extern gehostet
                 werden?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="managedService"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="managedService"
                   data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="managedService"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="managedService"
                   data-value="no">Nein</button>
               </div>
             </section>
@@ -131,9 +146,9 @@
               <label class="font-medium">3.4) Werden diese Systeme von mehreren Energieversorgern/Netzbetreibern genutzt
                 (zentrale Rolle)?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="multiTenant"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="multiTenant"
                   data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="multiTenant"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="multiTenant"
                   data-value="no">Nein</button>
               </div>
             </section>
@@ -142,38 +157,38 @@
               <label class="font-medium">3.5) Werden Ihre Systeme vollständig durch den Auftraggeber betrieben (Sie
                 liefern nur Personal / Prozesssupport)?</label>
               <div class="flex gap-2">
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="clientHosted"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="clientHosted"
                   data-value="yes">Ja</button>
-                <button type="button" class="btn-yn px-3 py-1 rounded-md border" data-target="clientHosted"
+                <button type="button" class="btn-yn px-3 py-1 rounded-md border focus-ring" data-target="clientHosted"
                   data-value="no">Nein</button>
               </div>
             </section>
           </div>
 
           <!-- Ebene 4 (Größe / Kritikalität) -->
-          <section id="sizeSection" class="space-y-2 hidden">
+          <section id="sizeSection" class="space-y-2 hidden" tabindex="-1">
             <label class="font-medium">4) Unternehmensgröße / Kritikalität</label>
             <p class="muted">NIS‑2 gilt grundsätzlich für mittlere und große Unternehmen (typisch: &gt;50 Mitarbeitende
               und &gt;10 Mio. € Jahresumsatz), kann aber auch für kleinere Unternehmen gelten, wenn besondere
               Kritikalität vorliegt.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="large"
-                  class="mr-2"> Mittleres / großes Unternehmen (≥50 MA oder &gt;10M€ Umsatz)</label>
-              <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="small"
-                  class="mr-2"> Klein (<50 MA und ≤10M€ Umsatz)</label>
-                  <label class="p-2 border rounded-md cursor-pointer"><input type="radio" name="size" value="critical"
-                      class="mr-2"> Klein, aber betreibt kritische zentrale Systeme</label>
+              <label class="p-2 border rounded-md cursor-pointer focus-ring"><input type="radio" name="size" value="large"
+                  class="mr-2 focus-ring"> Mittleres / großes Unternehmen (≥50 MA oder &gt;10M€ Umsatz)</label>
+              <label class="p-2 border rounded-md cursor-pointer focus-ring"><input type="radio" name="size" value="small"
+                  class="mr-2 focus-ring"> Klein (<50 MA und ≤10M€ Umsatz)</label>
+                  <label class="p-2 border rounded-md cursor-pointer focus-ring"><input type="radio" name="size" value="critical"
+                      class="mr-2 focus-ring"> Klein, aber betreibt kritische zentrale Systeme</label>
             </div>
           </section>
 
           <!-- Ebene 5 (Lieferkette) -->
-          <section id="supplyChain" class="space-y-2 hidden">
+          <section id="supplyChain" class="space-y-2 hidden" tabindex="-1">
             <label class="font-medium">5) Lieferkettenbezug</label>
-            <label class="block"><input type="checkbox" id="hasNisClients" class="mr-2"> Ich habe Kunden, die selbst
+            <label class="block"><input type="checkbox" id="hasNisClients" class="mr-2 focus-ring"> Ich habe Kunden, die selbst
               NIS‑2-pflichtig sind (z. B. Netzbetreiber, größere Energieversorger)</label>
-            <label class="block"><input type="checkbox" id="contractRequirements" class="mr-2"> Verträge verlangen
+            <label class="block"><input type="checkbox" id="contractRequirements" class="mr-2 focus-ring"> Verträge verlangen
               IT‑Sicherheitsstandards (ISO27001, BSI‑Grundschutz o.ä.)</label>
-            <label class="block"><input type="checkbox" id="processSensitiveData" class="mr-2"> Ich verarbeite
+            <label class="block"><input type="checkbox" id="processSensitiveData" class="mr-2 focus-ring"> Ich verarbeite
               empfindliche Betriebs- oder Kundendaten meiner Auftraggeber</label>
           </section>
 
@@ -183,20 +198,24 @@
             <div class="text-sm muted">Antworten werden lokal verarbeitet. Dies ist eine Entscheidungshilfe, keine
               rechtliche Beratung.</div>
             <div class="flex gap-2">
-              <button type="button" id="backBtn" class="px-3 py-2 rounded-md border">Zurück</button>
-              <button type="button" id="evaluateBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Bewertung
+              <button type="button" id="backBtn" class="px-3 py-2 rounded-md border focus-ring">Zurück</button>
+              <button type="button" id="nextStepBtn"
+                class="px-3 py-2 rounded-md border border-indigo-200 text-indigo-700 bg-indigo-50 focus-ring">Weiter</button>
+              <button type="button" id="evaluateBtn"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-lg focus-ring" disabled>Bewertung
                 anzeigen</button>
             </div>
           </div>
+          <div id="validationMessage" class="hidden text-sm text-red-700" role="status"></div>
         </form>
 
-        <div id="result" class="hidden mt-6">
+        <div id="result" class="hidden mt-6" role="region" aria-live="polite" aria-label="NIS-2 Ergebnis">
           <div class="p-4 border rounded-lg bg-indigo-50">
             <h2 id="resultTitle" class="text-lg font-semibold">Ergebnis</h2>
-            <p id="resultSummary" class="mt-2"></p>
+            <p id="resultSummary" class="mt-2" aria-live="polite" aria-atomic="true"></p>
             <div id="resultActions" class="mt-4 flex gap-2">
-              <button id="refineBtn" class="px-3 py-2 rounded-md border">Fragen anpassen</button>
-              <button id="generatePDF" class="px-3 py-2 bg-indigo-600 text-white rounded-md">Report als PDF</button>
+              <button id="refineBtn" class="px-3 py-2 rounded-md border focus-ring">Fragen anpassen</button>
+              <button id="generatePDF" class="px-3 py-2 bg-indigo-600 text-white rounded-md focus-ring">Report als PDF</button>
             </div>
           </div>
 
@@ -226,6 +245,7 @@
     const loadExample = document.getElementById('loadExample');
     const quizForm = document.getElementById('quizForm');
     const intro = document.getElementById('intro');
+    const stepIndicator = document.getElementById('stepIndicator');
 
     const sector = document.getElementById('sector');
     const q_function = document.getElementById('q_function');
@@ -235,6 +255,7 @@
 
     const backBtn = document.getElementById('backBtn');
     const evaluateBtn = document.getElementById('evaluateBtn');
+    const nextStepBtn = document.getElementById('nextStepBtn');
     const resultDiv = document.getElementById('result');
     const resultTitle = document.getElementById('resultTitle');
     const resultSummary = document.getElementById('resultSummary');
@@ -242,6 +263,7 @@
     const recommendations = document.getElementById('recommendations');
     const generatePDF = document.getElementById('generatePDF');
     const downloadReport = document.getElementById('downloadReport');
+    const validationMessage = document.getElementById('validationMessage');
 
     // helper state
     const state = {
@@ -259,11 +281,16 @@
       result: null
     };
 
+    let currentStepIndex = 0;
+    let steps = [];
+
     startBtn.addEventListener('click', () => {
       intro.classList.add('hidden');
       quizForm.classList.remove('hidden');
       q_function.classList.add('hidden');
       document.getElementById('q_sector').scrollIntoView({ behavior: 'smooth' });
+      currentStepIndex = 0;
+      updateStepIndicator();
     });
 
     loadExample.addEventListener('click', () => {
@@ -292,6 +319,9 @@
       state.processSensitiveData = true;
       document.getElementById('sizeSection').classList.remove('hidden');
       document.getElementById('supplyChain').classList.remove('hidden');
+      refreshYesNoStates();
+      currentStepIndex = getSteps().length - 2;
+      updateStepIndicator();
     });
 
     sector.addEventListener('change', onSectorChange);
@@ -304,6 +334,9 @@
         serviceQuestions.classList.add('hidden');
         sizeSection.classList.add('hidden');
         supplyChain.classList.add('hidden');
+        state.func = null;
+        refreshYesNoStates();
+        updateStepIndicator();
         return;
       }
       q_function.classList.remove('hidden');
@@ -312,6 +345,8 @@
       state.func = null;
       // show/hide further sections depending on selection
       [...document.querySelectorAll('input[name=function]')].forEach(el => el.addEventListener('change', onFunctionChange));
+      currentStepIndex = 1;
+      updateStepIndicator();
     }
 
     function onFunctionChange(e) {
@@ -325,6 +360,9 @@
         document.getElementById('sizeSection').classList.remove('hidden');
         document.getElementById('supplyChain').classList.remove('hidden');
       }
+      refreshYesNoStates();
+      currentStepIndex = Math.min(currentStepIndex, getSteps().length - 2);
+      updateStepIndicator();
     }
 
     function showServiceQuestions() {
@@ -334,6 +372,8 @@
 
       // attach Y/N buttons
       document.querySelectorAll('.btn-yn').forEach(btn => {
+        if (btn.dataset.bound === 'true') return;
+        btn.dataset.bound = 'true';
         btn.addEventListener('click', (ev) => {
 
           const target = ev.currentTarget.dataset.target;
@@ -343,6 +383,8 @@
           const group = document.querySelectorAll(`.btn-yn[data-target="${target}"]`);
           group.forEach(g => g.classList.remove('bg-indigo-600', 'text-white'));
           ev.currentTarget.classList.add('bg-indigo-600', 'text-white');
+          group.forEach(g => g.setAttribute('aria-pressed', 'false'));
+          ev.currentTarget.setAttribute('aria-pressed', 'true');
 
           // Update state
           state[target] = val;
@@ -370,18 +412,24 @@
           // MSP / Applikationsbetrieb (NEU!)
           if (target === 'managedService') state.managedService = val;
 
+          refreshYesNoStates();
+          updateStepIndicator();
         });
       });
     }
 
 
     // size radio
-    document.querySelectorAll('input[name=size]').forEach(el => el.addEventListener('change', (e) => { state.size = e.target.value; }));
+    document.querySelectorAll('input[name=size]').forEach(el => el.addEventListener('change', (e) => {
+      state.size = e.target.value;
+      updateStepIndicator();
+      setValidationMessage('');
+    }));
 
     // supply chain checkboxes
-    document.getElementById('hasNisClients').addEventListener('change', e => state.hasNisClients = e.target.checked);
-    document.getElementById('contractRequirements').addEventListener('change', e => state.contractRequirements = e.target.checked);
-    document.getElementById('processSensitiveData').addEventListener('change', e => state.processSensitiveData = e.target.checked);
+    document.getElementById('hasNisClients').addEventListener('change', e => { state.hasNisClients = e.target.checked; setValidationMessage(''); });
+    document.getElementById('contractRequirements').addEventListener('change', e => { state.contractRequirements = e.target.checked; setValidationMessage(''); });
+    document.getElementById('processSensitiveData').addEventListener('change', e => { state.processSensitiveData = e.target.checked; setValidationMessage(''); });
 
     backBtn.addEventListener('click', () => {
       // Einfach: zurück zum intro
@@ -389,20 +437,172 @@
       quizForm.classList.add('hidden');
       resultDiv.classList.add('hidden');
       downloadReport.classList.add('hidden');
+      setValidationMessage('');
     });
 
     evaluateBtn.addEventListener('click', evaluate);
+    nextStepBtn.addEventListener('click', () => {
+      const stepId = steps[currentStepIndex]?.id;
+      if (stepId && !isStepValid(stepId)) {
+        showInlineValidation(stepId);
+        return;
+      }
+      setValidationMessage('');
+      if (currentStepIndex < steps.length - 2) {
+        currentStepIndex++;
+        focusCurrentSection();
+        updateStepIndicator();
+      }
+    });
+
+    function setValidationMessage(msg) {
+      if (!msg) {
+        validationMessage.classList.add('hidden');
+        validationMessage.textContent = '';
+        return;
+      }
+      validationMessage.classList.remove('hidden');
+      validationMessage.textContent = msg;
+    }
 
     function evaluate() {
-      // Basic validation
-      if (!state.sector) { alert('Bitte wähle zuerst einen Sektor.'); return; }
-      if (!state.func) { alert('Bitte wähle die Funktion Deines Unternehmens.'); return; }
-      // if service, ensure essential answered
-      if (state.func === 'service' && state.essential === null) { alert('Bitte beantworte, ob Du essentielle Dienstleistungen erbringst.'); return; }
+      const firstInvalid = steps.find(s => !isStepValid(s.id));
+      if (firstInvalid) {
+        showInlineValidation(firstInvalid.id);
+        return;
+      }
       // determine result
       const r = computeResult(state);
       state.result = r;
       showResult(r);
+      currentStepIndex = getSteps().length - 1;
+      updateStepIndicator();
+    }
+
+    function showInlineValidation(stepId) {
+      let message = 'Bitte beantworte die markierten Pflichtfelder.';
+      if (stepId === 'q_sector') message = 'Bitte wähle zuerst einen Sektor.';
+      if (stepId === 'q_function') message = 'Bitte wähle die Funktion Deines Unternehmens.';
+      if (stepId === 'serviceQuestions') message = 'Bitte beantworte die Dienstleistungsfragen vollständig.';
+      if (stepId === 'sizeSection') message = 'Bitte wähle eine Angabe zur Unternehmensgröße.';
+      setValidationMessage(message);
+      focusCurrentSection(stepId);
+      updateNavigationState();
+    }
+
+    function getSteps() {
+      const base = [
+        { id: 'q_sector', label: 'Sektor' },
+        { id: 'q_function', label: 'Funktion' }
+      ];
+      if (state.func === 'service') {
+        base.push({ id: 'serviceQuestions', label: 'Dienstleister-Details' });
+      }
+      base.push({ id: 'sizeSection', label: 'Größe/Kritikalität' });
+      base.push({ id: 'supplyChain', label: 'Lieferkette' });
+      base.push({ id: 'result', label: 'Ergebnis' });
+      return base;
+    }
+
+    function isStepValid(stepId) {
+      if (stepId === 'q_sector') return !!state.sector;
+      if (stepId === 'q_function') return !!state.func;
+      if (stepId === 'serviceQuestions') {
+        if (state.func !== 'service') return true;
+        if (state.essential === null || state.ownSystems === null) return false;
+        if (state.ownSystems && state.multiTenant === null) return false;
+        if (state.ownSystems === false && state.clientHosted === null) return false;
+        return true;
+      }
+      if (stepId === 'sizeSection') return !!state.size;
+      return true;
+    }
+
+    function updateStepIndicator() {
+      steps = getSteps();
+      stepIndicator.innerHTML = '';
+
+      steps.forEach((step, index) => {
+        const status = index < currentStepIndex ? 'done' : index === currentStepIndex ? 'current' : 'upcoming';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'step-item';
+        const badge = document.createElement('div');
+        badge.className = 'step-badge';
+        badge.textContent = index + 1;
+
+        if (status === 'done') {
+          badge.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+        } else if (status === 'current') {
+          badge.classList.add('border-indigo-600', 'text-indigo-700');
+        } else {
+          badge.classList.add('border-slate-200', 'text-slate-400');
+        }
+
+        const label = document.createElement('span');
+        label.textContent = step.label;
+        wrapper.appendChild(badge);
+        wrapper.appendChild(label);
+        stepIndicator.appendChild(wrapper);
+      });
+
+      updateNavigationState();
+    }
+
+    function updateNavigationState() {
+      const isLastQuestionStep = currentStepIndex >= steps.length - 2;
+      nextStepBtn.classList.toggle('hidden', isLastQuestionStep);
+      evaluateBtn.classList.toggle('hidden', !isLastQuestionStep);
+      const hasInvalid = steps.some(step => step.id !== 'result' && !isStepValid(step.id));
+      nextStepBtn.disabled = !isStepValid(steps[currentStepIndex]?.id || '');
+      evaluateBtn.disabled = !isLastQuestionStep || hasInvalid;
+
+      const currentId = steps[currentStepIndex]?.id;
+      if (currentId) {
+        document.getElementById(currentId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function focusCurrentSection(idOverride) {
+      const targetId = idOverride || steps[currentStepIndex]?.id;
+      const el = document.getElementById(targetId);
+      if (el) el.focus({ preventScroll: true });
+    }
+
+    function refreshYesNoStates() {
+      const mapping = {
+        essential: state.essential,
+        ownSystems: state.ownSystems,
+        managedService: state.managedService,
+        multiTenant: state.multiTenant,
+        clientHosted: state.clientHosted
+      };
+
+      Object.keys(mapping).forEach(key => {
+        const val = mapping[key];
+        const buttons = document.querySelectorAll(`.btn-yn[data-target="${key}"]`);
+        buttons.forEach(btn => {
+          btn.classList.remove('bg-indigo-600', 'text-white');
+          btn.setAttribute('aria-pressed', 'false');
+          if (val === null) return;
+          const isYes = btn.dataset.value === 'yes';
+          if ((val && isYes) || (!val && !isYes)) {
+            btn.classList.add('bg-indigo-600', 'text-white');
+            btn.setAttribute('aria-pressed', 'true');
+          }
+        });
+      });
+
+      if (state.func === 'service') {
+        document.getElementById('managedService').classList.remove('hidden');
+        if (state.ownSystems === true) {
+          document.getElementById('multiTenantWrap').classList.remove('hidden');
+          document.getElementById('clientHostedWrap').classList.add('hidden');
+        }
+        if (state.ownSystems === false) {
+          document.getElementById('clientHostedWrap').classList.remove('hidden');
+          document.getElementById('multiTenantWrap').classList.add('hidden');
+        }
+      }
     }
 
     function computeResult(state) {
@@ -500,6 +700,7 @@
 
       quizForm.classList.add('hidden');
       resultDiv.classList.remove('hidden');
+      setValidationMessage('');
 
       // Titel
       resultTitle.textContent = r.label;
@@ -609,10 +810,18 @@
     document.getElementById('refineBtn').addEventListener('click', () => {
       resultDiv.classList.add('hidden');
       quizForm.classList.remove('hidden');
+      setValidationMessage('');
+      refreshYesNoStates();
+      currentStepIndex = steps.findIndex(s => s.id === 'supplyChain');
+      if (currentStepIndex < 0) currentStepIndex = steps.length - 2;
+      updateStepIndicator();
     });
 
     // small accessibility: allow Enter to start when focused on startBtn
     startBtn.addEventListener('keyup', (e) => { if (e.key === 'Enter') startBtn.click(); });
+
+    // initial indicator state
+    updateStepIndicator();
 
   </script>
 </body>
