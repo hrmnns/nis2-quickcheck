@@ -441,6 +441,7 @@
     }
 
     function evaluate() {
+      syncStateFromForm();
       const firstInvalid = getSteps().find(s => !isStepValid(s.id));
       if (firstInvalid) {
         showInlineValidation(firstInvalid.id);
@@ -476,7 +477,22 @@
       return base;
     }
 
+    function syncStateFromForm() {
+      // defensive sync (falls ein Event einmal nicht feuert)
+      state.sector = sector.value || null;
+      const selectedFunction = document.querySelector('input[name=function]:checked');
+      state.func = selectedFunction ? selectedFunction.value : null;
+
+      const selectedSize = document.querySelector('input[name=size]:checked');
+      state.size = selectedSize ? selectedSize.value : null;
+
+      state.hasNisClients = document.getElementById('hasNisClients').checked;
+      state.contractRequirements = document.getElementById('contractRequirements').checked;
+      state.processSensitiveData = document.getElementById('processSensitiveData').checked;
+    }
+
     function isStepValid(stepId) {
+      syncStateFromForm();
       if (stepId === 'q_sector') return !!state.sector;
       if (stepId === 'q_function') return !!state.func;
       if (stepId === 'serviceQuestions') {
